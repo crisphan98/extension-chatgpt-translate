@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Translation Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 200px;
+      padding: 10px;
+    }
+    select {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Select Language</h1>
+  <select id="toolTranslate">
+    <option value="chatGPT">ChatGPT</option>
+    <option value="google">Google</option>
+  </select>
+  <select id="languageSelect">
+    <option value="en">English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="vi">Vietnamese</option>
+    <!-- Add more languages as needed -->
+  </select>
+  <button id="saveButton">Save</button>
+  <script src="popup.js"></script>
+</body>
+</html>

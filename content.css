@@ -1,0 +1,13 @@
+#translateIcon {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+  
