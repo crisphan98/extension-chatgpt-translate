@@ -61,11 +61,22 @@ function showTranslateIcon(x, y, text) {
         const language = data.selectedLanguage || 'en';
         chrome.storage.sync.get('selectedTypeTranslate', (data) => {
             const typeTranslate = data.selectedTypeTranslate || 'chatGPT';
-            if (typeTranslate === 'chatGPT') {
-                translateIcon.href = `https://chatgpt.com/?prompt=${encodeURIComponent(text)}&language=${language}`;
-            } else {
-                translateIcon.href = `https://translate.google.com/?sl=auto&tl=${language}&text=${encodeURIComponent(text)}&op=translate`;
-            }
+            chrome.storage.sync.get('selectedTypeOpenWith', (data) => {
+                const openWith = data.selectedTypeOpenWith || 'new-tab';
+
+                let url = `https://translate.google.com/?sl=auto&tl=${language}&text=${encodeURIComponent(text)}&op=translate`;
+                if (typeTranslate === 'chatGPT') {
+                    url = `https://chatgpt.com/?prompt=${encodeURIComponent(text)}&language=${language}`;
+                } 
+    
+                if (openWith === 'new-tab') {
+                    translateIcon.href = url;
+                } else if (openWith === 'popup') {
+                    translateIcon.addEventListener('click', () => {
+                        window.open(url, '_blank', 'width=800,height=800');
+                    });
+                }
+            });
         });
     });
 
