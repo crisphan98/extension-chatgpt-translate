@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
         // Tìm textarea element và điền giá trị
         const textareaElement = document.querySelector('textarea');
         if (textareaElement) {
-            textareaElement.value = "Translate: '" + promptValue + "' in " + language;
+            textareaElement.value = "Translate the text below into " + language + " language::\n" + promptValue;
             // Gọi sự kiện input để đảm bảo các thay đổi được nhận diện
             textareaElement.dispatchEvent(new Event('input', { bubbles: true }));
             setTimeout(function () {/* Look mah! No name! */

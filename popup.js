@@ -44,6 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('selectedTypeOpenWith', selectedTypeOpenWith);
     });
 
-    alert('Lưu thành công!');
+    alert('Saved!');
   });
 });
