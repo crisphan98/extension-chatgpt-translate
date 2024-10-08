@@ -1,7 +1,37 @@
+
+
+// Log URL của tab hiện tại khi DOM đã sẵn sàng
+window.addEventListener('load', () => {
+    // Lấy URL hiện tại
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Kiểm tra xem có tham số 'prompt' không
+    if (urlParams.has('prompt')) {
+        const promptValue = urlParams.get('prompt');
+        const language = urlParams.get('language');
+        // Tìm textarea element và điền giá trị
+        const textareaElement = document.querySelector('textarea');
+        if (textareaElement) {
+            textareaElement.value = "Translate: '" + promptValue + "' in " + language;
+            // Gọi sự kiện input để đảm bảo các thay đổi được nhận diện
+            textareaElement.dispatchEvent(new Event('input', { bubbles: true }));
+            setTimeout(function () {/* Look mah! No name! */
+                // Tìm nút submit bằng data-testid và nhấn
+                const submitButton = document.querySelector('button[data-testid="send-button"]');
+                if (submitButton && !submitButton.disabled) {
+                    submitButton.click();
+                }
+            }, 1000);
+        } else {
+            alert('Khong tim thay input va button submit');
+        }
+    }
+});
+
 document.addEventListener('mouseup', (event) => {
     const selectedText = window.getSelection().toString().trim();
     if (selectedText.length > 0) {
-        showTranslateIcon(event.pageX, event.pageY, selectedText);
+        showTranslateIcon(event.pageX + 20, event.pageY - 10, selectedText);
     }
 });
 function hideTranslateIcon(id) {
@@ -32,7 +62,7 @@ function showTranslateIcon(x, y, text) {
         chrome.storage.sync.get('selectedTypeTranslate', (data) => {
             const typeTranslate = data.selectedTypeTranslate || 'chatGPT';
             if (typeTranslate === 'chatGPT') {
-                translateIcon.href = `https://chatgpt.com/chat?model=gpt-3.5-turbo-0613&prompt=${encodeURIComponent(text)}`;
+                translateIcon.href = `https://chatgpt.com/?prompt=${encodeURIComponent(text)}&language=${language}`;
             } else {
                 translateIcon.href = `https://translate.google.com/?sl=auto&tl=${language}&text=${encodeURIComponent(text)}&op=translate`;
             }
@@ -46,10 +76,3 @@ function showTranslateIcon(x, y, text) {
         hideTranslateIcon(id);
     }, "2000");
 }
-
-document.addEventListener('mousedown', () => {
-    // const translateIcon = document.getElementById('translateIcon');
-    // if (translateIcon) {
-    //   translateIcon.remove();
-    // }
-});
